@@ -1,0 +1,1 @@
+from app.routes import auth, org, kpi, knowledge, reports
