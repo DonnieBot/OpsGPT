@@ -1,83 +1,76 @@
-# OpsGPT AI - Operations Intelligence Backend
+# ⚡ OpsGPT AI - Full SaaS Operations Intelligence Platform
 
-A **multi-tenant AI Operations Intelligence backend** for BPOs (Business Process Outsourcing companies).
+A **complete, production-ready multi-tenant SaaS** for BPO operations management with AI-powered insights.
 
-## 🚀 Quick Start
+![Dashboard Preview](https://via.placeholder.com/800x400/6366f1/ffffff?text=OpsGPT+Dashboard)
 
-### Using Docker (Recommended)
+## 🚀 Deploy in 60 Seconds
 
 ```bash
-# Build and start
+# Clone and deploy
+git clone https://github.com/DonnieBot/OpsGPT.git
+cd OpsGPT
 docker-compose up --build
-
-# Seed the database (in another terminal)
-docker exec -it opsgpt-app-1 python seeds/seed.py
-
-# API runs at: http://localhost:5000
 ```
 
-### Manual Setup
+**Done!** Access your SaaS at: `http://localhost`
 
-```bash
-# Install dependencies
-pip install -r requirements.txt
+---
 
-# Set up PostgreSQL and update .env
-# DATABASE_URL=postgresql://opsmind:opsmind123@localhost:5432/opsmind_db
+## ✨ Features
 
-# Run migrations
-alembic upgrade head
+### 📊 Dashboard
+- Real-time KPI performance trends
+- Root cause distribution charts
+- Quick access to pending justifications
+- Executive-ready metrics
 
-# Seed database
-python seeds/seed.py
+### 🎯 KPI Management
+- Dynamic KPI definitions per client
+- Automated variance calculation
+- Trend visualization
+- Threshold alerts
 
-# Start server
-python wsgi.py
-```
+### 📝 Justifications & RCA
+- Auto-classification of root causes
+- Approval workflow (Draft → Approved → Certified)
+- Action plan tracking
+- Team collaboration
 
-## 📚 API Endpoints
+### 📈 Reports
+- Daily/Weekly/Monthly analytics
+- Export to CSV/PDF
+- Root cause analysis
+- Compliance tracking
 
-### Authentication
-- `POST /auth/register` - Register new user
-- `POST /auth/login` - Login and get JWT token
-- `GET /auth/me` - Get current user info
+### 💡 Knowledge Base
+- AI-ready operational insights
+- Verified resolution patterns
+- Confidence scoring
+- Similar incident finder
 
-### Organizations
-- `POST /org/create` - Create organization
-- `GET /org/<id>` - Get organization
-- `GET /org/` - List all organizations
+### ⚙️ Settings
+- Profile management
+- Organization settings
+- Notification preferences
+- Security controls
 
-### Projects
-- `POST /org/projects` - Create project
-- `GET /org/projects/org/<org_id>` - List projects by org
-- `GET /org/projects/<id>` - Get project
+---
 
-### KPI Management
-- `POST /kpi/create-definition` - Create KPI definition
-- `GET /kpi/definitions/project/<project_id>` - List KPIs
-- `POST /kpi/ingest-value` - Ingest KPI value
-- `GET /kpi/project/<project_id>` - Get KPI values
+## 🏗️ Tech Stack
 
-### Justifications
-- `POST /kpi/justify` - Create justification with auto-classification
-- `GET /kpi/justifications/<project_id>` - Get justifications
-- `PUT /kpi/justifications/<id>` - Update justification
+| Layer | Technology |
+|-------|------------|
+| Frontend | React 18 + Vite + Recharts |
+| Backend | Python 3.11 + Flask |
+| Database | PostgreSQL 15 |
+| Auth | JWT |
+| Web Server | Gunicorn + Nginx |
+| Container | Docker Compose |
 
-### Root Causes
-- `POST /kpi/root-cause/create` - Create root cause
-- `GET /kpi/root-cause/project/<project_id>` - List root causes
+---
 
-### Knowledge Base
-- `POST /knowledge/insights` - Create insight
-- `GET /knowledge/insights/project/<project_id>` - Get insights
-- `GET /knowledge/insights/search` - Search insights
-
-### Reporting
-- `GET /reports/daily/<project_id>` - Daily report
-- `GET /reports/weekly/<project_id>` - Weekly report
-- `GET /reports/monthly/<project_id>` - Monthly report
-
-## 🔐 Default Test Credentials
+## 🔐 Default Credentials
 
 | Email | Password | Role |
 |-------|----------|------|
@@ -85,57 +78,83 @@ python wsgi.py
 | manager@opsmind.com | manager123 | Manager |
 | analyst@opsmind.com | analyst123 | Analyst |
 
-## 🧠 Core Features
+---
 
-### Multi-tenant Architecture
-- Organizations → Projects → KPIs
-- JWT-based authentication
-- Role-based access (Admin, Manager, Analyst)
+## 📁 Project Structure
 
-### Dynamic KPI Configuration
-- Custom KPI definitions per project
-- Configurable targets and units
-- Direction-based variance calculation
+```
+OpsGPT/
+├── frontend/           # React SPA
+│   ├── src/
+│   │   ├── pages/      # Dashboard, Projects, KPIs, Reports, etc.
+│   │   ├── components/ # Sidebar, Layout, etc.
+│   │   ├── services/   # API service
+│   │   └── context/    # Auth context
+│   └── dist/           # Built assets
+├── app/                # Flask backend
+│   ├── models/         # SQLAlchemy models
+│   ├── routes/         # API endpoints
+│   └── services/       # Business logic
+├── migrations/         # Alembic DB migrations
+├── seeds/             # Sample data
+├── docker-compose.yml # Full stack deployment
+├── Dockerfile          # Multi-stage build
+└── nginx.conf         # Production Nginx config
+```
 
-### Operational Intelligence
-- Auto-classification of root causes
-- Justification capture with RCA
-- Knowledge base for AI training
+---
 
-### Reporting Engine
-- Daily/Weekly/Monthly aggregations
-- Root cause analysis
-- Compliance tracking
-
-## 🐳 Docker Commands
+## 🐳 Docker Deployment
 
 ```bash
-# Build image
-docker build -t opsgpt .
-
-# Run container
-docker run -p 5000:5000 opsgpt
+# Start all services
+docker-compose up --build -d
 
 # View logs
-docker-compose logs -f app
+docker-compose logs -f
 
 # Stop services
 docker-compose down
+
+# Rebuild after changes
+docker-compose up --build
 ```
 
-## 📦 Tech Stack
+### Services:
+- **Port 80**: Frontend (Nginx)
+- **Port 5000**: Backend API
+- **Port 5432**: PostgreSQL
 
-- **Python 3.11**
-- **Flask** (Blueprint architecture)
-- **PostgreSQL 15**
-- **SQLAlchemy** ORM
-- **Alembic** migrations
-- **JWT** Authentication
-- **Gunicorn** production server
+---
+
+## 🔧 Manual Setup
+
+### Backend
+```bash
+pip install -r requirements.txt
+python seeds/seed.py
+python wsgi.py
+```
+
+### Frontend
+```bash
+cd frontend
+npm install
+npm run dev
+```
+
+---
 
 ## 🌱 Future Extensions
 
-- OpenAI integration for RCA generation
-- pgvector for similarity search
-- Predictive KPI forecasting
-- React dashboard frontend
+- [ ] OpenAI RCA Generator
+- [ ] pgvector Similarity Search
+- [ ] Predictive KPI Engine
+- [ ] Real-time WebSocket Updates
+- [ ] Multi-tenant Billing
+
+---
+
+## 📄 License
+
+MIT License - Built with ❤️ for BPO Operations Teams
